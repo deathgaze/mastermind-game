@@ -30,11 +30,7 @@ def promptGuess(prompt):
 # Takes a guess and secret and returns a string containing an 'O' for every
 # element in guess that equals the corresponding element in secret
 def getHits(guess, secret):
-    res = ''
-    for i, j in zip(guess, secret):
-        if i == j:
-            res.append('O')
-    return res
+    
     
 
 # Takes the hits, guess and secret. Returns a string containing an 'X' for every digit
@@ -53,6 +49,9 @@ def playGame():
     print("If a digit is in the correct position, I'll mark an O.")
     print("If a digit is neither in my number nor in position, I won't mark "
         "anything.")
+    print("If a digit is alredy marked with an O, I will not mark it down as an "
+        "X."
+    
     
     while True:
         res = ''
