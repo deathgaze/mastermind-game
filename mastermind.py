@@ -50,16 +50,28 @@ def playGame():
     print("If a digit is neither in my number nor in position, I won't mark "
         "anything.")
     print("If a digit is alredy marked with an O, I will not mark it down as an "
-        "X."
+        "X.")
     
     
     while True:
         res = ''
         guess = promptGuess("Guess #" + guesses + ": ")
         if guess:
-            # We got a valid guess
-            res.append(getHits(guess, secret))
-            res.append(getMisses(res, guess, secret))
+            # We got a valid guess, first pull out the hits
+            hits = []
+            for i in range(0, 5):
+                if guess[i] == secret[i]:
+                    hits.append(i)
+            # hits is now an array of 
+            # Now we have a list of hits -- these cannot be matched by misses
+            for char in guess:
+                if char in secret and char not in hits:
+                    
+            
+            #
+            #
+            #
+            
             print(res)
             guess += 1
             if res == 'OOOO':
