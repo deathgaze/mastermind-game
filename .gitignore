@@ -3,3 +3,5 @@ dbg*.*
 test.py
 __*
 *.swp
+virtualenv
+.c9*
