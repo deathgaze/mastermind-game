@@ -6,7 +6,18 @@
 
 import random
 
-def formatGuess(guess):
+def print_title():
+    print("\nLet's play...")
+    print(\
+    r"    ___  ___          _           ___  ____           _  ""\n"\
+    r"    |  \/  |         | |          |  \/  (_)         | | ""\n"\
+    r"    | .  . | __ _ ___| |_ ___ _ __| .  . |_ _ __   __| | ""\n"\
+    r"    | |\/| |/ _` / __| __/ _ \ '__| |\/| | | '_ \ / _` | ""\n"\
+    r"    | |  | | (_| \__ \ ||  __/ |  | |  | | | | | | (_| | ""\n"\
+    r"    \_|  |_/\__,_|___/\__\___|_|  \_|  |_/_|_| |_|\__,_| ""\n")                                                
+
+def format_guess(guess):
+    guess = int(guess)
     if guess < 10:
         return "000" + str(guess)
     elif guess < 100:
@@ -18,73 +29,68 @@ def formatGuess(guess):
 
 # Takes a prompt and returns a formatted guess as a string. Returns false
 # if the user enters invalid input
-def promptGuess(prompt):
+def prompt_guess(prompt):
     answer = input(prompt)
     if answer.isdigit() and len(answer) == 4:
         return answer
     elif int(answer) >= 0 and int(answer) < 10000:
-        return formatGuess(answer)
+        return format_guess(answer)
     else:
         return False
 
-# Takes a guess and secret and returns a string containing an 'O' for every
-# element in guess that equals the corresponding element in secret
-def getHits(guess, secret):
-    
-    
-
-# Takes the hits, guess and secret. Returns a string containing an 'X' for every digit
-# in 
-def getMisses(hits, guess, secret):
-    return 'X'
-
-def playGame():
+def play_game():
     answer = ''
-    secret = random.random() * 10000
+    secret = str(int(random.random() * 10000))
     guesses = 1
-    print("I am thinking of a 4 digit number.")
-    print("Guess the number.")
-    print("If one or more of the digits is in the number I'm thinking of, but "+
-        "NOT in the correct position, I'll mark an X.")
-    print("If a digit is in the correct position, I'll mark an O.")
-    print("If a digit is neither in my number nor in position, I won't mark "
-        "anything.")
-    print("If a digit is alredy marked with an O, I will not mark it down as an "
-        "X.")
     
+    print_title()
+    print("Rules: I am thinking of a secret 4 digit number. Guess my number.")
+    print("- If a digit is in the correct position, I'll mark an O.")
+    print("- If one or more of the digits is in my secret, "\
+        "but NOT in the correct position, I'll mark an X.")
+    print("- If a digit is neither in my secret nor in position, I won't "  \
+        "mark anything.")
+    print("- If a digit is alredy marked, I will not mark it down again.")
     
     while True:
         res = ''
-        guess = promptGuess("Guess #" + guesses + ": ")
+        guess = prompt_guess("Guess #" + str(guesses) + ": ")
         if guess:
-            # We got a valid guess, first pull out the hits
-            hits = []
-            for i in range(0, 5):
-                if guess[i] == secret[i]:
-                    hits.append(i)
-            # hits is now an array of 
-            # Now we have a list of hits -- these cannot be matched by misses
-            for char in guess:
-                if char in secret and char not in hits:
-                    
-            
-            #
-            #
-            #
-            
-            print(res)
-            guess += 1
+            hit_str = ''
+            miss_str = ''
+            for i, (g_char, s_char) in enumerate(zip(list(guess), list(secret))):
+                if g_char == s_char:
+                    # the easy part: finding direct hits
+                    hit_str += g_char
+                    res += 'O'
+                # elif g_char in secret \
+                #     and g_char not in hit_str \
+                #     and g_char not in miss_str:
+                #     # if its in the secret but we haven't tracked it as either
+                #     # a hit or a miss, then it's a new miss
+                #     miss_str += g_char
+                #     res += 'X'
+            for g_char in guess:
+                if g_char in secret \
+                and g_char not in miss_str \
+                and g_char not in hit_str:
+                    miss_str += g_char
+                    res += 'X'
+                
+
+            # Properly format the result before printing it back to the user.
+            print("Result:  ", str('').join(sorted(list(res))))
+            guesses += 1
             if res == 'OOOO':
                 print("You win! My secret was", secret)
+                print("It took you", guesses, "guesses to find my secret.")
                 break
         else:
-            # Bad Guess
             print("Invalid guess. Guess must be four integers 0-9.")
     
     answer = input("Would you like to play again? (y to play again) --> ")
     return answer == 'y'
 
-print("Let's play Mastermind!")
-while playGame():
+while play_game():
     continue
     
