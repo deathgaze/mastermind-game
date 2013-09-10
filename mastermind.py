@@ -7,8 +7,14 @@
 import random
 
 def print_title():
-    print(
-    )                                                
+    print("\nLet's play...")
+    print(\
+    r"    ___  ___          _           ___  ____           _  ""\n"\
+    r"    |  \/  |         | |          |  \/  (_)         | | ""\n"\
+    r"    | .  . | __ _ ___| |_ ___ _ __| .  . |_ _ __   __| | ""\n"\
+    r"    | |\/| |/ _` / __| __/ _ \ '__| |\/| | | '_ \ / _` | ""\n"\
+    r"    | |  | | (_| \__ \ ||  __/ |  | |  | | | | | | (_| | ""\n"\
+    r"    \_|  |_/\__,_|___/\__\___|_|  \_|  |_/_|_| |_|\__,_| ""\n")                                                
 
 def format_guess(guess):
     guess = int(guess)
@@ -37,15 +43,14 @@ def play_game():
     secret = str(int(random.random() * 10000))
     guesses = 1
     
-    print("I am thinking of a 4 digit number.")
-    print("Guess the number.")
-    print("If one or more of the digits is in the number I'm thinking of, but "\
-        "NOT in the correct position, I'll mark an X.")
-    print("If a digit is in the correct position, I'll mark an O.")
-    print("If a digit is neither in my number nor in position, I won't mark "  \
-        "anything.")
-    print("If a digit is alredy marked with an O, I will not mark it down as " \
-        "an X.")
+    print_title()
+    print("Rules: I am thinking of a secret 4 digit number. Guess my number.")
+    print("- If a digit is in the correct position, I'll mark an O.")
+    print("- If one or more of the digits is in my secret, "\
+        "but NOT in the correct position, I'll mark an X.")
+    print("- If a digit is neither in my secret nor in position, I won't "  \
+        "mark anything.")
+    print("- If a digit is alredy marked, I will not mark it down again.")
     
     while True:
         res = ''
@@ -58,14 +63,22 @@ def play_game():
                     # the easy part: finding direct hits
                     hit_str += g_char
                     res += 'O'
-                elif g_char in secret \
-                    and g_char not in hit_str \
-                    and g_char not in miss_str:
-                    # if its in the secret but we haven't tracked it as either
-                    # a hit or a miss, then it's a new miss
+                # elif g_char in secret \
+                #     and g_char not in hit_str \
+                #     and g_char not in miss_str:
+                #     # if its in the secret but we haven't tracked it as either
+                #     # a hit or a miss, then it's a new miss
+                #     miss_str += g_char
+                #     res += 'X'
+            for g_char in guess:
+                if g_char in secret \
+                and g_char not in miss_str \
+                and g_char not in hit_str:
                     miss_str += g_char
                     res += 'X'
+                
 
+            # Properly format the result before printing it back to the user.
             print("Result:  ", str('').join(sorted(list(res))))
             guesses += 1
             if res == 'OOOO':
@@ -73,13 +86,11 @@ def play_game():
                 print("It took you", guesses, "guesses to find my secret.")
                 break
         else:
-            # Bad Guess
             print("Invalid guess. Guess must be four integers 0-9.")
     
     answer = input("Would you like to play again? (y to play again) --> ")
     return answer == 'y'
 
-print("Let's play Mastermind!")
 while play_game():
     continue
     
