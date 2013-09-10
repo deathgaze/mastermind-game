@@ -5,3 +5,5 @@ __*
 *.swp
 virtualenv
 .c9*
+.virtualenv
+*.sw*
