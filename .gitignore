@@ -1,0 +1,5 @@
+go
+dbg*.*
+test.py
+__*
+*.swp
