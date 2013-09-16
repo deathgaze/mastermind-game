@@ -63,13 +63,7 @@ def play_game():
                     # the easy part: finding direct hits
                     hit_str += g_char
                     res += 'O'
-                # elif g_char in secret \
-                #     and g_char not in hit_str \
-                #     and g_char not in miss_str:
-                #     # if its in the secret but we haven't tracked it as either
-                #     # a hit or a miss, then it's a new miss
-                #     miss_str += g_char
-                #     res += 'X'
+            
             for g_char in guess:
                 if g_char in secret \
                 and g_char not in miss_str \
