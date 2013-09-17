@@ -36,55 +36,72 @@ def format_guess(guess):
     else:
         return str(guess)
 
+def random_guess():
+    return format_guess(int(random.random() * 10000))
+
 # Takes a prompt and returns a formatted guess as a string. Returns false
-# if the user enters invalid input
+# if the user passes invalid input
 def prompt_guess(prompt):
     answer = input(prompt)
-    if answer.isdigit() and len(answer) == 4:
+    if validate_guess(answer):
         return answer
     elif int(answer) >= 0 and int(answer) < 10000:
         return format_guess(answer)
     else:
         return False
-        
+
+def validate_guess(guess):
+    if type(guess) == str and len(guess) == 4 and guess.isdigit():
+        return True
+    else:
+        return False
+
 class MastermindGame:
-    guesses = 0
-    secret = 
+    def __init__(self):
+        self.guesses = 0
+        self.secret = random_guess()
+        
+    def reset(self):
+        __init__()
     
+    # 
     def play_round(self, guess):
-        if game_over:
+        if self.game_over:
             return 'OOOO'
         
-        res = ''
-        if guess:
-            hit_str = ''
-            miss_str = ''
-            for i, (g_char, s_char) in enumerate(zip(list(guess), list(secret))):
-                if g_char == s_char:
-                    # the easy part: finding direct hits
-                    hit_str += g_char
-                    res += 'O'
+        res = ''        
+        if not validate_guess(guess):
+            return res
             
-            for g_char in guess:
-                if g_char in secret \
-                and g_char not in miss_str \
-                and g_char not in hit_str:
-                    miss_str += g_char
-                    res += 'X'
-                
-            # Properly format the result before printing it back to the user.
-            res = ''.join(sorted(list(res)))
-            guesses += 1
+        hit_str = ''
+        miss_str = ''
+        for i, (g_char, s_char) in enumerate(zip(list(guess), list(secret))):
+            if g_char == s_char:
+                hit_str += g_char
+                res += 'O'
+        
+        for g_char in guess:
+            if g_char in secret \
+            and g_char not in miss_str \
+            and g_char not in hit_str:
+                miss_str += g_char
+                res += 'X'
+            
+        # Properly format the result before printing it back to the user.
+        res = ''.join(sorted(list(res)))
+        self.guesses += 1
         
         if res == 'OOOO':
             self.game_over = True
+            
+        return res
 
 def play_game():
     print_title()
     print_rules()
     
     while True:
-
+        pass
     
     answer = input("Would you like to play again? (y to play again) --> ")
     return answer == 'y'
