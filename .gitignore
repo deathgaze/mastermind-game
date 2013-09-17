@@ -7,3 +7,4 @@ virtualenv
 .c9*
 .virtualenv
 *.sw*
+*.pyc

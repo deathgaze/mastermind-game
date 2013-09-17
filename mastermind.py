@@ -71,9 +71,8 @@ def play_game():
                     miss_str += g_char
                     res += 'X'
                 
-
             # Properly format the result before printing it back to the user.
-            print("Result:  ", str('').join(sorted(list(res))))
+            print("Result:  ", ''.join(sorted(list(res))))
             guesses += 1
             if res == 'OOOO':
                 print("You win! My secret was", secret)
@@ -84,7 +83,3 @@ def play_game():
     
     answer = input("Would you like to play again? (y to play again) --> ")
     return answer == 'y'
-
-while play_game():
-    continue
-    
